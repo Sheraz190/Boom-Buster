@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity;
+using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D _playerRb;
     [SerializeField] private Vector2 _originalScale;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject canvas;
     private bool _isJumping = false;
     private bool _isGrounded = true;
     private float duration = 3.5f;
@@ -33,6 +35,11 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         SetOriginalScale();
+        if(Application.isPlaying)
+        {
+            canvas.SetActive(false);
+        }
+        DropDown();
     }
 
     private void SetOriginalScale()
@@ -42,9 +49,43 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        CheckInputs();
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+
+    private void CheckInputs()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            IncreaseSpeed();
+            SetWalkTrue();
+            _playerRb.linearVelocity = new Vector2(-_currentSpeed, _playerRb.linearVelocity.y);
+            transform.localScale = new Vector2(-_originalScale.x, _originalScale.y);
+        }
+       
+
+       else if (Input.GetKey(KeyCode.RightArrow))
+       {
+            IncreaseSpeed();
+            SetWalkTrue();
+            _playerRb.linearVelocity = new Vector2(_currentSpeed, _playerRb.linearVelocity.y);
+            transform.localScale = new Vector2(_originalScale.x, _originalScale.y);
+       }
+
+        else
+        {
+            elapsedTime = 0;
+            _currentSpeed = 0;
+            _playerRb.linearVelocity = new Vector2(0, _playerRb.linearVelocity.y);
+            BackToIdleState();
         }
     }
 
@@ -79,7 +120,6 @@ public class PlayerController : MonoBehaviour
             elapsedTime = 0;
             _currentSpeed = 0;
         }
-
     }
 
     public void MovePlayerLeft()
@@ -118,8 +158,7 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded )
         {
             _playerRb.AddForce(Vector2.up * 500, ForceMode2D.Impulse);
-            StartCoroutine_Auto(DropDown());
-           // _playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            StartCoroutine(DropDown());
             _isGrounded = false;
             SetJumpAnimation();
         }
@@ -128,7 +167,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator DropDown()
     {
         yield return new WaitForSeconds(0.2f);
-        _playerRb.linearVelocity = new Vector2(_playerRb.linearVelocity.x, -50f);
+        _playerRb.linearVelocity = new Vector2(_playerRb.linearVelocity.x, -200f);
     }
 
     private void SetJumpAnimation()
