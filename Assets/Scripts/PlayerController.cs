@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     #region Variables
     public static PlayerController Instance;
 
+    [SerializeField] private GameObject player;
     [SerializeField] private Rigidbody2D _playerRb;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject canvas;
@@ -47,8 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //#if UNITY_EDITOR
-        CheckKeyboardInputs();
+      //s  CheckKeyboardInputs();
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -141,13 +141,11 @@ public class PlayerController : MonoBehaviour
     public void MovePlayerLeft()
     {
         _canMoveLeft = true;
-       // Movings();
     }
 
     public void MovePlayerRight()
     {
         _canMoveRight = true;
-        //Movings();
     }
 
     public void StopMoving()
@@ -208,10 +206,10 @@ public class PlayerController : MonoBehaviour
             StopJumpAnim();
         }
 
-        if(collision.gameObject.CompareTag("Collider"))
-        {
-            MoveDownToGround();
-        }
+        //if(collision.gameObject.CompareTag("Collider"))
+        //{
+        //    MoveDownToGround();
+        //}
     }
 
     private void MoveDownToGround()
@@ -219,6 +217,41 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Method move down Called");
         StartCoroutine(DropDown());
         StopMoving();
+    }
+
+    public void SetAttackAnimation()
+    {
+        animator.SetBool("Attack", true);
+        StartCoroutine(StopAttackAnimation());
+    }
+        
+    private IEnumerator StopAttackAnimation()
+    {
+        yield return new WaitForSeconds(0.55f);
+        animator.SetBool("Attack", false);
+    }
+
+    public void SetVanishAnimation()
+    {
+        animator.SetBool("Vanish", true);
+        StartCoroutine(StopVanishAnimation());
+    }
+
+    private IEnumerator StopVanishAnimation()
+    {
+        yield return new WaitForSeconds(0.75f);
+        animator.SetBool("Vanish", false);
+    }
+    public void SetDeathAnimation()
+    {
+        animator.SetBool("Death", true);
+        StartCoroutine(StopDeathAnimation());
+    }
+
+    private IEnumerator StopDeathAnimation()
+    {
+        yield return new WaitForSeconds(2f);
+        animator.SetBool("Death", false);
     }
 }
 
