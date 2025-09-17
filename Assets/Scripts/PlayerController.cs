@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-      //s  CheckKeyboardInputs();
+        CheckKeyboardInputs();
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isGrounded )
         {
-            _playerRb.AddForce(Vector2.up * 25, ForceMode2D.Impulse);
+            _playerRb.AddForce(Vector2.up * 18, ForceMode2D.Impulse);
             StartCoroutine(DropDown());
             _isGrounded = false;
             SetJumpAnimation();
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DropDown()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         _playerRb.linearVelocity = new Vector2(_playerRb.linearVelocity.x, -10f);
     }
 
@@ -205,11 +205,6 @@ public class PlayerController : MonoBehaviour
             _isGrounded = true;
             StopJumpAnim();
         }
-
-        //if(collision.gameObject.CompareTag("Collider"))
-        //{
-        //    MoveDownToGround();
-        //}
     }
 
     private void MoveDownToGround()
