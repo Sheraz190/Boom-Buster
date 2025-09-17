@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool _canMoveRight;
     private float _maxSpeed = 20;
     private int _jumpForce = 20;
+    private int _jumpCount;
     #endregion
 
     private void Awake()
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-       // CheckKeyboardInputs();
+        CheckKeyboardInputs();
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -113,8 +114,9 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (_isGrounded)
+        if (_isGrounded||CheckIfDoubleJump())
         {
+            _jumpCount++;
             SetJumpAnimation();
             playerRb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             StartCoroutine(DropDown());
@@ -129,13 +131,25 @@ public class PlayerController : MonoBehaviour
         StopJumpAnim();
     }
 
+    private bool CheckIfDoubleJump()
+    {
+        if (_jumpCount < 2)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             _isGrounded = true;
+            _jumpCount = 0;
         }
     }
+
+
 
     private void SetWalkTrue()
     {
@@ -167,7 +181,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator StopAttackAnimation()
     {
-        yield return new WaitForSeconds(0.55f);
+        yield return new WaitForSeconds(0.3f);
         animator.SetBool("Attack", false);
     }
 
@@ -194,6 +208,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         animator.SetBool("Death", false);
     }
+
+
 }
 
 
