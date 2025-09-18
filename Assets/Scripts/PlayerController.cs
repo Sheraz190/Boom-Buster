@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject canvas;
     [SerializeField] private Transform spawnPos;
-    [SerializeField] private GameObject shruikenButton;
-    [SerializeField] private Image coolDownImage;
     private Vector2 _originalScale;
     private bool _isGrounded = true;
     private bool _canMoveLeft;
@@ -38,9 +36,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         SetOriginalScale();
-        ColorBlock cb = shruikenButton.GetComponent<Button>().colors;
-        cb.disabledColor = cb.normalColor;
-        shruikenButton.GetComponent<Button>().colors = cb;
     }
 
     private void SetOriginalScale()
@@ -217,8 +212,6 @@ public class PlayerController : MonoBehaviour
     public void ThrowShruiken()
     {
         OnAttack();
-        OnShruikenButtonClick();
-        shruikenButton.GetComponent<Button>().interactable = false;
     }
     
     private void OnAttack()
@@ -228,26 +221,6 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = transform.localScale.x > 0 ?Vector2.right:Vector2.left;
         obj.SetActive(true);
         obj.GetComponent<ShruikenController>().LaunchShruiken(direction);
-    }
-
-    private void OnShruikenButtonClick()
-    {
-        coolDownImage.fillAmount = 1.0f;
-        StartCoroutine(CooldownReverse());
-    }
-
-    private IEnumerator CooldownReverse()
-    {
-        float timer = 2.0f;
-        coolDownImage.fillAmount = 1f; 
-        while (timer > 0f)
-        {
-            timer -= Time.deltaTime;
-            coolDownImage.fillAmount = timer / 2.0f; 
-            yield return null; 
-        }
-        coolDownImage.fillAmount = 0f;
-        shruikenButton.GetComponent<Button>().interactable = true;
     }
 }
 

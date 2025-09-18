@@ -1631,7 +1631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.08627451}
+  m_Color: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 0.6862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10456,8 +10456,6 @@ MonoBehaviour:
   animator: {fileID: 1767316914}
   canvas: {fileID: 1319841782}
   spawnPos: {fileID: 5781842}
-  shruikenButton: {fileID: 1899854235}
-  coolDownImage: {fileID: 1438607493}
 --- !u!95 &1767316914
 Animator:
   serializedVersion: 7
@@ -11111,6 +11109,7 @@ GameObject:
   - component: {fileID: 1899854239}
   - component: {fileID: 1899854238}
   - component: {fileID: 1899854237}
+  - component: {fileID: 1899854240}
   m_Layer: 5
   m_Name: shurikenButton
   m_TagString: Untagged
@@ -11183,6 +11182,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1899854240}
+        m_TargetAssemblyTypeName: ShruikenButton, Assembly-CSharp
+        m_MethodName: OnShruikenButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1767316913}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: ThrowShruiken
@@ -11233,6 +11244,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899854235}
   m_CullTransparentMesh: 1
+--- !u!114 &1899854240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899854235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd713e4f3b88ef94ea44f7f52840ee6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDownImage: {fileID: 1438607493}
+  shruikenButton: {fileID: 1899854235}
 --- !u!1 &2113847690
 GameObject:
   m_ObjectHideFlags: 0
