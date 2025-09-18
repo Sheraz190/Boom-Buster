@@ -3,6 +3,7 @@ using Unity;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,10 +14,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject canvas;
-
+    [SerializeField] private Transform spawnPos;
+    [SerializeField] private GameObject shruikenButton;
+    [SerializeField] private Image coolDownImage;
     private Vector2 _originalScale;
     private bool _isGrounded = true;
-
     private bool _canMoveLeft;
     private bool _canMoveRight;
     private float _maxSpeed = 20;
@@ -36,6 +38,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         SetOriginalScale();
+        ColorBlock cb = shruikenButton.GetComponent<Button>().colors;
+        cb.disabledColor = cb.normalColor;
+        shruikenButton.GetComponent<Button>().colors = cb;
     }
 
     private void SetOriginalScale()
@@ -45,7 +50,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
         CheckKeyboardInputs();
+#endif
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -149,12 +156,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     private void SetWalkTrue()
     {
         animator.SetBool("Idle", false);
         animator.SetBool("Walk", true);
+        animator.SetBool("isWalking", true);
     }
 
     private void BackToIdleState()
@@ -162,6 +168,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Idle", true);
         animator.SetBool("Walk", false);
         animator.SetBool("Running", false);
+        animator.SetBool("isWalking", false);
     }
 
     private void SetJumpAnimation()
@@ -176,12 +183,10 @@ public class PlayerController : MonoBehaviour
     public void SetAttackAnimation()
     {
         animator.SetBool("Attack", true);
-        StartCoroutine(StopAttackAnimation());
     }
 
-    private IEnumerator StopAttackAnimation()
+    private void StopAttackAnimation()
     {
-        yield return new WaitForSeconds(0.3f);
         animator.SetBool("Attack", false);
     }
 
@@ -209,7 +214,41 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Death", false);
     }
 
+    public void ThrowShruiken()
+    {
+        OnAttack();
+        OnShruikenButtonClick();
+        shruikenButton.GetComponent<Button>().interactable = false;
+    }
+    
+    private void OnAttack()
+    {
+        GameObject obj = ObjectPooler.Instance.GetShruiken();
+        obj.transform.position = spawnPos.position;
+        Vector2 direction = transform.localScale.x > 0 ?Vector2.right:Vector2.left;
+        obj.SetActive(true);
+        obj.GetComponent<ShruikenController>().LaunchShruiken(direction);
+    }
 
+    private void OnShruikenButtonClick()
+    {
+        coolDownImage.fillAmount = 1.0f;
+        StartCoroutine(CooldownReverse());
+    }
+
+    private IEnumerator CooldownReverse()
+    {
+        float timer = 2.0f;
+        coolDownImage.fillAmount = 1f; 
+        while (timer > 0f)
+        {
+            timer -= Time.deltaTime;
+            coolDownImage.fillAmount = timer / 2.0f; 
+            yield return null; 
+        }
+        coolDownImage.fillAmount = 0f;
+        shruikenButton.GetComponent<Button>().interactable = true;
+    }
 }
 
 

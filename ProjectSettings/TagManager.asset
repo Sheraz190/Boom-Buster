@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Collider
+  - SideColliders
   layers:
   - Default
   - TransparentFX

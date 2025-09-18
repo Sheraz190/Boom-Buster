@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class AddLogger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static void DisplayLog(string text)
     {
-        
+        Debug.Log(text);
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void DisplayErrorLog(string text)
     {
-        
+        Debug.LogError(text);
     }
 }
