@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject canvas;
     [SerializeField] private Transform spawnPos;
     private Vector2 _originalScale;
+    private bool _isVanish;
     private bool _isGrounded = true;
     private bool _canMoveLeft;
     private bool _canMoveRight;
@@ -45,9 +46,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-//#if UNITY_EDITOR
-//        CheckKeyboardInputs();
-//#endif
+#if UNITY_EDITOR
+        CheckKeyboardInputs();
+#endif
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -181,7 +182,10 @@ public class PlayerController : MonoBehaviour
     }
     public void SetAttackAnimation()
     {
-        animator.SetBool("Attack", true);
+        if(!_isVanish)
+        {
+            animator.SetBool("Attack", true);
+        }
     }
 
     private void AddAttackSound()
@@ -204,6 +208,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.75f);
         animator.SetBool("Vanish", false);
+        StartCoroutine(VanishPlayer());
     }
 
     public void SetDeathAnimation()
@@ -220,7 +225,10 @@ public class PlayerController : MonoBehaviour
 
     public void ThrowShruiken()
     {
-        OnAttack();
+        if(!_isVanish)
+        {
+            OnAttack();
+        }
     }
     
     private void OnAttack()
@@ -235,6 +243,19 @@ public class PlayerController : MonoBehaviour
     private void SetWalkSound()
     {
         SoundController.Instance.TurnOnWalkSound();
+    }
+
+    private IEnumerator VanishPlayer()
+    {
+        _isVanish = true;
+        SpriteRenderer sr = player.GetComponent<SpriteRenderer>();
+        Color c = sr.color;
+        c.a = 0.3f;
+        sr.color = c;
+        yield return new WaitForSeconds(5.0f);
+        c.a = 1;
+        sr.color = c;
+        _isVanish = false;
     }
 }
 
