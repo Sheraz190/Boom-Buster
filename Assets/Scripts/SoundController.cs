@@ -8,16 +8,41 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip shruikenClip;
     [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip jumpSound;
     #endregion
+
+    private void Awake()
+    {
+        if(Instance==null)
+        {
+            Instance = this;
+        }
+    }
 
     public void TurnShruikenSound()
     {
         audioSource.PlayOneShot(shruikenClip);
     }
 
-    public void TurnAttackSound()
+    public void TurnOnAttackSound()
     {
         audioSource.PlayOneShot(attackSound);
     }
 
+    public void TurnOnJumpSound()
+    {
+        audioSource.PlayOneShot(jumpSound);
+    }
+
+    public void TurnOnWalkSound()
+    {
+        //audioSource.PlayOneShot(walkSound);
+    }
+
+    public void TurnOffWalkSound()
+    {
+        audioSource.Stop();
+        audioSource.clip = null;
+        audioSource.loop = false;
+    }
 }

@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool _canMoveRight;
     private float _maxSpeed = 20;
     private int _jumpForce = 20;
-    private int _jumpCount;
+    public int _jumpCount;
     #endregion
 
     private void Awake()
@@ -45,9 +45,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
-        CheckKeyboardInputs();
-#endif
+//#if UNITY_EDITOR
+//        CheckKeyboardInputs();
+//#endif
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -59,16 +59,19 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             _canMoveLeft = true;
+           
             _canMoveRight = false;
         }
         else if (Keyboard.current.rightArrowKey.isPressed)
         {
             _canMoveRight = true;
             _canMoveLeft = false;
+            
         }
         else
         {
             StopMoving();
+          
         }
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -121,6 +124,7 @@ public class PlayerController : MonoBehaviour
             _jumpCount++;
             SetJumpAnimation();
             playerRb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            SoundController.Instance.TurnOnJumpSound();
             StartCoroutine(DropDown());
             _isGrounded = false;
         }
@@ -180,6 +184,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Attack", true);
     }
 
+    private void AddAttackSound()
+    {
+        SoundController.Instance.TurnOnAttackSound();
+    }
+
     private void StopAttackAnimation()
     {
         animator.SetBool("Attack", false);
@@ -221,6 +230,11 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = transform.localScale.x > 0 ?Vector2.right:Vector2.left;
         obj.SetActive(true);
         obj.GetComponent<ShruikenController>().LaunchShruiken(direction);
+    }
+
+    private void SetWalkSound()
+    {
+        SoundController.Instance.TurnOnWalkSound();
     }
 }
 
