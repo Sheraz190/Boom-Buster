@@ -9,6 +9,7 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip attackSound;
     [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip buttonClick;
     #endregion
 
     private void Awake()
@@ -34,15 +35,8 @@ public class SoundController : MonoBehaviour
         audioSource.PlayOneShot(jumpSound);
     }
 
-    public void TurnOnWalkSound()
+    public void GeneralButtonClick()
     {
-        //audioSource.PlayOneShot(walkSound);
-    }
-
-    public void TurnOffWalkSound()
-    {
-        audioSource.Stop();
-        audioSource.clip = null;
-        audioSource.loop = false;
+        audioSource.PlayOneShot(buttonClick);
     }
 }

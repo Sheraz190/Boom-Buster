@@ -46,9 +46,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
-        CheckKeyboardInputs();
-#endif
+//#if UNITY_EDITOR
+//        CheckKeyboardInputs();
+//#endif
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
@@ -238,11 +238,6 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = transform.localScale.x > 0 ?Vector2.right:Vector2.left;
         obj.SetActive(true);
         obj.GetComponent<ShruikenController>().LaunchShruiken(direction);
-    }
-
-    private void SetWalkSound()
-    {
-        SoundController.Instance.TurnOnWalkSound();
     }
 
     private IEnumerator VanishPlayer()

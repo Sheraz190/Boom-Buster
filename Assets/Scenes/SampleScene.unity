@@ -311,7 +311,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 37826230}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &37826230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,9 +1104,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1767316913}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: SetVanishAnimation
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1107,6 +1119,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1160852747}
         m_TargetAssemblyTypeName: ButtonCoolDownController, Assembly-CSharp
         m_MethodName: VanishButtonCoolDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1160852747}
+        m_TargetAssemblyTypeName: ButtonCoolDownController, Assembly-CSharp
+        m_MethodName: VanishButtonCoolDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1767316913}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: SetVanishAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1681,7 +1717,6 @@ MonoBehaviour:
   shruikenButton: {fileID: 1899854235}
   attackButton: {fileID: 1801896919}
   vanishButton: {fileID: 613367246}
-  blockImage: {fileID: 178297400}
 --- !u!1 &1269265415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,6 +1766,7 @@ MonoBehaviour:
   walkSound: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
   attackSound: {fileID: 8300000, guid: fd25a15f9797641458336cccfb445343, type: 3}
   jumpSound: {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
+  buttonClick: {fileID: 8300000, guid: 4e7ce19b0c9dda1458946554f940d3b8, type: 3}
 --- !u!1 &1319841782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1951,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1385632501}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1385632501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2111,7 +2159,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1466916686}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1466916686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11056,7 +11116,6 @@ GameObject:
   - component: {fileID: 1801896923}
   - component: {fileID: 1801896922}
   - component: {fileID: 1801896921}
-  - component: {fileID: 1801896924}
   m_Layer: 5
   m_Name: AttackButton
   m_TagString: Untagged
@@ -11129,9 +11188,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1767316913}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: SetAttackAnimation
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11144,6 +11203,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1160852747}
         m_TargetAssemblyTypeName: ButtonCoolDownController, Assembly-CSharp
         m_MethodName: SetAttackButtonToCoolDownState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1767316913}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: SetAttackAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11191,35 +11262,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801896919}
   m_CullTransparentMesh: 1
---- !u!114 &1801896924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1801896919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1899854235}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1803488898
 GameObject:
   m_ObjectHideFlags: 0
@@ -11377,7 +11419,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1816346309}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1816346309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11596,7 +11650,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1852589085}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1852589085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11797,9 +11863,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1160852747}
-        m_TargetAssemblyTypeName: ButtonCoolDownController, Assembly-CSharp
-        m_MethodName: SetShruikenButtonToCoolDownState
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: GeneralButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11812,6 +11878,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1767316913}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: ThrowShruiken
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1269265417}
+        m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
+        m_MethodName: TurnShruikenSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
