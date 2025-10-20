@@ -46,9 +46,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-//#if UNITY_EDITOR
-//        CheckKeyboardInputs();
-//#endif
+#if UNITY_EDITOR
+        CheckKeyboardInputs();
+#endif
         if (_canMoveLeft || _canMoveRight)
         {
             Movings();
