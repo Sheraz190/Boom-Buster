@@ -3,6 +3,7 @@ using Unity;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject canvas;
     [SerializeField] private Transform spawnPos;
+    [SerializeField] private GameObject _door;
     private Vector2 _originalScale;
     private bool _isVanish;
     private bool _isGrounded = true;
@@ -36,12 +38,33 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        UIManager.Instance.SetAllFalse();
         SetOriginalScale();
+        StartCoroutine(StartPlayer());
+
     }
 
     private void SetOriginalScale()
     {
         _originalScale = transform.localScale;
+    }
+
+    private IEnumerator StartPlayer()
+    {
+        Color playerColor = gameObject.GetComponent<SpriteRenderer>().color;
+        playerColor.a = 0.1f;
+        gameObject.GetComponent<SpriteRenderer>().color = playerColor;
+        Vector3 pos = gameObject.transform.position;
+        while (playerColor.a <= 1)
+        {
+            yield return new WaitForSeconds(0.25f);
+            playerColor.a += 0.1f;
+            gameObject.GetComponent<SpriteRenderer>().color = playerColor;
+            pos.x += 0.22f;
+            gameObject.transform.position = pos;
+        }
+        _door.transform.position = new Vector3(_door.transform.position.x, _door.transform.position.y, 0);
+        UIManager.Instance.SetAlllTrue();
     }
 
     private void Update()
@@ -60,19 +83,17 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             _canMoveLeft = true;
-           
             _canMoveRight = false;
         }
         else if (Keyboard.current.rightArrowKey.isPressed)
         {
             _canMoveRight = true;
             _canMoveLeft = false;
-            
+
         }
         else
         {
             StopMoving();
-          
         }
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -120,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (_isGrounded||CheckIfDoubleJump())
+        if (_isGrounded || CheckIfDoubleJump())
         {
             _jumpCount++;
             SetJumpAnimation();
@@ -154,16 +175,39 @@ public class PlayerController : MonoBehaviour
             _isGrounded = true;
             _jumpCount = 0;
         }
+
+        if (collision.gameObject.CompareTag("FinishPoint"))
+        {
+            _canMoveRight = false;
+            _canMoveLeft = false;
+            UIManager.Instance.SetAllFalse();
+            collision.gameObject.GetComponent<Collider2D>().enabled = false;
+            StartCoroutine(FadePlayer());
+        }
     }
 
-    private void SetWalkTrue()
+    private IEnumerator FadePlayer()
+    {
+
+        Color playerColor = gameObject.GetComponent<SpriteRenderer>().color;
+        gameObject.transform.DOMoveX(100, 1.1f);
+        while (playerColor.a >= 0)
+        {
+            yield return new WaitForSeconds(0.1f);
+            playerColor.a -= 0.1f;
+            gameObject.GetComponent<SpriteRenderer>().color = playerColor;
+
+        }
+    }
+
+    public void SetWalkTrue()
     {
         animator.SetBool("Idle", false);
         animator.SetBool("Walk", true);
         animator.SetBool("isWalking", true);
     }
 
-    private void BackToIdleState()
+    public void BackToIdleState()
     {
         animator.SetBool("Idle", true);
         animator.SetBool("Walk", false);
@@ -182,7 +226,7 @@ public class PlayerController : MonoBehaviour
     }
     public void SetAttackAnimation()
     {
-        if(!_isVanish)
+        if (!_isVanish)
         {
             animator.SetBool("Attack", true);
         }
@@ -225,17 +269,17 @@ public class PlayerController : MonoBehaviour
 
     public void ThrowShruiken()
     {
-        if(!_isVanish)
+        if (!_isVanish)
         {
             OnAttack();
         }
     }
-    
+
     private void OnAttack()
     {
         GameObject obj = ObjectPooler.Instance.GetShruiken();
         obj.transform.position = spawnPos.position;
-        Vector2 direction = transform.localScale.x > 0 ?Vector2.right:Vector2.left;
+        Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
         obj.SetActive(true);
         obj.GetComponent<ShruikenController>().LaunchShruiken(direction);
     }

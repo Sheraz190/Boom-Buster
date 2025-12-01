@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Collider
   - SideColliders
+  - FinishPoint
   layers:
   - Default
   - TransparentFX

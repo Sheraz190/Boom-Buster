@@ -1,16 +1,31 @@
 using UnityEngine;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    #region Variables
+    public static UIManager Instance;
+    [SerializeField] private GameObject _enterDoorButton;
+    [SerializeField] private GameObject buttons;
+    #endregion
+
+    private void Start()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OpenDoorButton()
     {
-        
+        _enterDoorButton.gameObject.SetActive(true);
+    }
+
+    public void SetAlllTrue()
+    {
+        buttons.SetActive(true);
+    }
+
+    public void SetAllFalse()
+    {
+        buttons.SetActive(false);
     }
 }
