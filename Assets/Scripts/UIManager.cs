@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject buttons;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
     }
