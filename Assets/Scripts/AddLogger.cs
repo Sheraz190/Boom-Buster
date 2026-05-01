@@ -11,4 +11,5 @@ public class AddLogger : MonoBehaviour
     {
         Debug.LogError(text);
     }
+    // this is addlogger
 }
